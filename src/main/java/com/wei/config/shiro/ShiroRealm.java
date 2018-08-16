@@ -1,8 +1,9 @@
 package com.wei.config.shiro;
 
-import com.example.demo.model.permissionModel;
-import com.example.demo.model.roleModel;
-import com.example.demo.model.userModel;
+import com.wei.dao.PermissionModel;
+import com.wei.dao.RoleModel;
+import com.wei.dao.UserModel;
+import com.wei.service.user.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -21,23 +22,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ShiroRealm extends AuthorizingRealm {
 
     @Autowired
-    private com.example.demo.service.user.userService userService;
+    private UserService userService;
 
     //授权，每一次访问都会授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         System.out.println("===========配置当前用户权限==========");
-        userModel use = (userModel) principals.getPrimaryPrincipal();//doGetAuthenticationInfo方法注入什么对象就转什么对象
+        UserModel use = (UserModel) principals.getPrimaryPrincipal();//doGetAuthenticationInfo方法注入什么对象就转什么对象
         //查询角色权限
-        userModel user = userService.findByUsername(use.getUserName());
+        UserModel user = userService.findByUsername(use.getUserName());
         if(null == user){
             return null;
         }
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        for (roleModel role : user.getRoleModels()) {
+        for (RoleModel role : user.getRoleModels()) {
             authorizationInfo.addRole(role.getName());  // 添加角色
             System.out.println("当前用户拥有的permission 权限 有:");
-            for (permissionModel per : role.getPermissionModels()) {
+            for (PermissionModel per : role.getPermissionModels()) {
                 authorizationInfo.addStringPermission(per.getCode());  // 添加具体权限
                 System.out.println(""+per.getName()+";");
             }
@@ -51,7 +52,7 @@ public class ShiroRealm extends AuthorizingRealm {
             throws AuthenticationException {
         System.out.println("============= 登录认证=============");
         String username = (String) token.getPrincipal(); // 获取用户登录账号
-        userModel userInfo = userService.findByUsername(username);
+        UserModel userInfo = userService.findByUsername(username);
         if(null == userInfo){
             throw new UnknownAccountException("用户不存在");
         }
