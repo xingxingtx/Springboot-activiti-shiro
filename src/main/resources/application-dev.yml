@@ -31,9 +31,16 @@ spring:
           #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
           pool-prepared-statements: false
           max-pool-prepared-statement-per-connection-size: 20
+    redis:
+      shiro:
+        host: localhost
+        password:
+        port: 6379
+        timeout: 0
+        expire: 1800
 
 #swagger是否开启
 swagger:
   show: true
 
-
+#redis配置

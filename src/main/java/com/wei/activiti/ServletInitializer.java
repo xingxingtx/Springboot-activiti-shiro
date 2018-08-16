@@ -1,6 +1,6 @@
 package com.wei.activiti;
 
-import com.ActivitiApplication;
+import com.wei.ActivitiApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 

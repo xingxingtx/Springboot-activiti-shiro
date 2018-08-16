@@ -9,17 +9,19 @@ import javax.servlet.ServletResponse;
 import java.io.Serializable;
 
 /**
- * @Author:ZGP
- * @Desicription:继承会话管理  解决跨平台  session会话管理问题
+ * @Author:weipeng
+ * @Desicription:继承会话管理  shiro从cookie中读取sessionId以此来维持会话，在前后端分离的项目中（也可在移动APP项目使用），
+ * 我们选择在ajax的请求头中传递sessionId，因此需要重写shiro获取sessionId的方式。
+ * 自定义MySessionManager类继承DefaultWebSessionManager类，重写getSessionId方法
  * @Date:Created on 2018/7/9.
  * @Modified By:
  */
-public class myShiroSessionManager  extends DefaultWebSessionManager {
+public class MyShiroSessionManager extends DefaultWebSessionManager {
     private static final String TOKEN = "token";
 
     private static final String REFERENCED_SESSION_ID_SOURCE = "Stateless request";
 
-    public myShiroSessionManager() {
+    public MyShiroSessionManager() {
         super();
     }
     //重写 getSessionId()

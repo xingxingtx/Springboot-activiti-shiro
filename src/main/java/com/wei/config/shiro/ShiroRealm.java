@@ -14,20 +14,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 /**
- * @Author:ZGP
+ * @Author:
  * @Desicription:实现AuthorizingRealm抽象类  身份认证doGetAuthenticationInfo  和授权doGetAuthorizationInfo
  * @Date:Created on 2018/7/9.
  * @Modified By:
  */
+
 public class ShiroRealm extends AuthorizingRealm {
-
     @Autowired
-    private UserService userService;
-
+    private com.wei.service.user.UserService userService;
     //授权，每一次访问都会授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        System.out.println("===========配置当前用户权限==========");
+       /* System.out.println("===========配置当前用户权限==========");
         UserModel use = (UserModel) principals.getPrimaryPrincipal();//doGetAuthenticationInfo方法注入什么对象就转什么对象
         //查询角色权限
         UserModel user = userService.findByUsername(use.getUserName());
@@ -42,15 +41,15 @@ public class ShiroRealm extends AuthorizingRealm {
                 authorizationInfo.addStringPermission(per.getCode());  // 添加具体权限
                 System.out.println(""+per.getName()+";");
             }
-        }
-        return authorizationInfo;
+        }*/
+        return null;
     }
 
     //登录认证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)
             throws AuthenticationException {
-        System.out.println("============= 登录认证=============");
+        /*System.out.println("============= 登录认证=============");
         String username = (String) token.getPrincipal(); // 获取用户登录账号
         UserModel userInfo = userService.findByUsername(username);
         if(null == userInfo){
@@ -64,7 +63,7 @@ public class ShiroRealm extends AuthorizingRealm {
         String realmName = super.getName();
         // 4). credentialsSalt: 盐值. 类型是ByteSource
         ByteSource credentialsSalt = ByteSource.Util.bytes(userInfo.getUserName());//将用户名作为盐
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, credentials, credentialsSalt, realmName);
-        return info;
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, credentials, credentialsSalt, realmName);*/
+        return null;
     }
 }

@@ -20,7 +20,7 @@ import java.util.Random;
 
 /**
  * 系统工具类
- * Create by tanshaoxing on 2017-07-19.
+ * Create by weipeng on 2017-07-19.
  */
 public class Utils {
     //======================================== 基础工具 ========================================
