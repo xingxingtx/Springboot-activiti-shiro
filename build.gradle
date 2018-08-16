@@ -1,0 +1,58 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.3.RELEASE'
+	}
+	repositories {
+		maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+
+group = 'com.wei'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+	mavenCentral()
+}
+
+configurations {
+	providedRuntime
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	runtime('mysql:mysql-connector-java')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile group: 'org.springframework.boot',name: 'spring-boot-starter-thymeleaf'
+	/** activiti */
+	compile group: 'org.activiti', name: 'activiti-engine', version: '5.22.0'
+	//mybatis
+	compile group: 'org.mybatis', name: 'mybatis', version: '3.4.6'
+
+	//swagger相关
+	compile("io.springfox:springfox-swagger-ui:2.7.0")
+	compile("io.springfox:springfox-swagger2:2.7.0")
+
+	//shiro
+	compile group: 'org.apache.shiro', name: 'shiro-spring', version: '1.4.0'
+	//数据库连接池
+	compile group: 'com.alibaba', name: 'druid', version: '1.1.0'
+	//redis
+	compile('org.springframework.boot:spring-boot-starter-data-redis')
+
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
+
+	compile('com.google.code.gson:gson:2.6.2')
+	compile group: 'org.crazycake', name: 'shiro-redis', version: '2.4.2.1-RELEASE'
+}

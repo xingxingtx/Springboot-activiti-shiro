@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 流程引擎配置的bean -->
+	<bean id="processEngineConfiguration"
+		class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/activiti" />
+		<!--支持的数据库有h2、mysql、oracle、postgres、mssql、db2-->
+		<property name="jdbcDriver" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUsername" value="root" />
+		<property name="jdbcPassword" value="root" />
+		<!-- databaseSchemaUpdate为false Activiti启动时会对比数据库表中保存的版本，如果没有表或者版本不匹配，会在启动的时候抛出异常-->
+		<!-- databaseSchemaUpdate为true Activiti启动时会对数据库的表进行更新，如果表不存在则创建-->
+		<!-- databaseSchemaUpdate为create-drop Activiti启动时会执行数据库表的创建操作，在Activiti关闭时，执行数据库表的删除操作。如果启动时数据库存在则会抛出异常-->
+		<property name="databaseSchemaUpdate" value="true" />
+		<!-- asyncExecutorActivate 属性值设置ture会启动异步执行器-->
+		<!--邮件服务器配置-->
+		<property name="mailServerHost" value=""></property>
+	</bean>
+</beans>

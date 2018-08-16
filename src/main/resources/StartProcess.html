@@ -1,0 +1,25 @@
+<!DOCTYPE html  "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html   xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+        $(function() {
+            console.log(123);
+            $.ajax({
+                type: "GET",
+                url: "192.168.1.49:8080/api/inform",
+                dataType: "json",
+                success: function (data) {
+                    $("#imgTest").attr("src", data);
+                    console.log(data);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<img id="imgTest" alt="显示图片" src=""></img>
+</body>
+</html>
