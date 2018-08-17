@@ -48,6 +48,7 @@ dependencies {
 	compile group: 'org.apache.shiro', name: 'shiro-spring', version: '1.4.0'
 	//数据库连接池
 	compile group: 'com.alibaba', name: 'druid', version: '1.1.0'
+
 	//redis
 	compile('org.springframework.boot:spring-boot-starter-data-redis')
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
@@ -56,4 +57,8 @@ dependencies {
 	compile group: 'org.crazycake', name: 'shiro-redis', version: '2.4.2.1-RELEASE'
 	compileOnly("org.projectlombok:lombok:1.16.16")
 	compile group: 'com.alibaba', name: 'fastjson', version: '1.2.6'
+	// https://mvnrepository.com/artifact/com.baomidou/mybatisplus-spring-boot-starter
+	compile group: 'com.baomidou', name: 'mybatisplus-spring-boot-starter', version: '1.0.0'
+	// https://mvnrepository.com/artifact/com.baomidou/mybatis-plus
+	compile group: 'com.baomidou', name: 'mybatis-plus', version: '2.3'
 }

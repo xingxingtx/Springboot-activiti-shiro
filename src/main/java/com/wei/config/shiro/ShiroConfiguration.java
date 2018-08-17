@@ -10,7 +10,6 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
-import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,22 +43,38 @@ public class ShiroConfiguration {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
-        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-        //注意过滤器配置顺序 不能颠倒
-        //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了，登出后跳转配置的loginUrl
-        filterChainDefinitionMap.put("/logout", "logout");
-        // 配置不会被拦截的链接 顺序判断
-        filterChainDefinitionMap.put("/static/**", "anon");
-        filterChainDefinitionMap.put("/ajaxLogin", "anon");
-        filterChainDefinitionMap.put("/login", "anon");
-        filterChainDefinitionMap.put("/**", "authc");
-        //配置shiro默认登录界面地址，前后端分离中登录界面跳转应由前端路由控制，后台仅返回json数据
+        Map<String, String> map = new LinkedHashMap<String, String>();
+        //        三种方式实现定义权限路径
+//        第一种:使用角色名定义
+//        map.put("/**/**", "authc, roles[admin]");
+
+//        第二种:使用权限code定义
+//        map.put("/api/update", "authc, perms[UPDATE]");//对于restful接口 最好不要在这里定义，因为一个链接可以有不同的请求方式
+//        map.put("/api/delete", "authc, perms[DELETE]");
+//        map.put("/api/add", "authc, perms[ADD]");
+
+        // 配置不需要登录认证的链接 顺序判断
+        map.put("/api/selectUser","anon");
+        map.put("/static/**", "anon");
+        map.put("/api/login", "anon");
+        map.put("/swagger-ui.html/**", "anon");
+        map.put("/swagger-resources/**", "anon");
+        map.put("/v2/**", "anon");
+        map.put("/webjars/**", "anon");
+        map.put("/403", "anon");
+        //登出,shiro已经实现
+        map.put("/logout", "logout");
+        //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->;
+        //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问 使用@RequiresPermissions("")配置接口权限-->
+        map.put("/**", "authc");
+
+//        设置登录url，，未登录时请求的
         shiroFilterFactoryBean.setLoginUrl("/unauth");
-        // 登录成功后要跳转的链接
+//        登录成功后要跳转的链接
 //        shiroFilterFactoryBean.setSuccessUrl("/index");
-        //未授权界面;
-//        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        //未授权跳转页面，但是用注解RequiresPermissions配置的权限不通过会抛出AuthorizationException异常，并不会跳转，需要做相应的异常处理
+        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;
     }
 
@@ -79,10 +94,10 @@ public class ShiroConfiguration {
     }
 
     @Bean
-    public ShiroRealm myShiroRealm() {
-        ShiroRealm myShiroRealm = new ShiroRealm();
-        myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
-        return myShiroRealm;
+    public ShirRealm myShiroRealm() {
+        ShirRealm myShirRealm = new ShirRealm();
+        myShirRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        return myShirRealm;
     }
 
 

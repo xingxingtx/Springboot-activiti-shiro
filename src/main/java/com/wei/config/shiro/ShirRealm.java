@@ -1,8 +1,8 @@
 package com.wei.config.shiro;
 
-import com.wei.dao.PermissionModel;
-import com.wei.dao.RoleModel;
-import com.wei.dao.UserModel;
+import com.wei.model.PermissionModel;
+import com.wei.model.RoleModel;
+import com.wei.model.UserModel;
 import com.wei.service.user.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -19,14 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Date:Created on 2018/7/9.
  * @Modified By:
  */
-
-public class ShiroRealm extends AuthorizingRealm {
+public class ShirRealm extends AuthorizingRealm {
     @Autowired
-    private com.wei.service.user.UserService userService;
+    private UserService userService;
     //授权，每一次访问都会授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-       /* System.out.println("===========配置当前用户权限==========");
+       System.out.println("===========配置当前用户权限==========");
         UserModel use = (UserModel) principals.getPrimaryPrincipal();//doGetAuthenticationInfo方法注入什么对象就转什么对象
         //查询角色权限
         UserModel user = userService.findByUsername(use.getUserName());
@@ -41,7 +40,7 @@ public class ShiroRealm extends AuthorizingRealm {
                 authorizationInfo.addStringPermission(per.getCode());  // 添加具体权限
                 System.out.println(""+per.getName()+";");
             }
-        }*/
+        }
         return null;
     }
 
@@ -49,7 +48,7 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)
             throws AuthenticationException {
-        /*System.out.println("============= 登录认证=============");
+        System.out.println("============= 登录认证=============");
         String username = (String) token.getPrincipal(); // 获取用户登录账号
         UserModel userInfo = userService.findByUsername(username);
         if(null == userInfo){
@@ -63,7 +62,7 @@ public class ShiroRealm extends AuthorizingRealm {
         String realmName = super.getName();
         // 4). credentialsSalt: 盐值. 类型是ByteSource
         ByteSource credentialsSalt = ByteSource.Util.bytes(userInfo.getUserName());//将用户名作为盐
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, credentials, credentialsSalt, realmName);*/
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, credentials, credentialsSalt, realmName);
         return null;
     }
 }

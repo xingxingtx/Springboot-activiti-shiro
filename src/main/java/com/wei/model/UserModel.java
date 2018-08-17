@@ -1,4 +1,4 @@
-package com.wei.dao;
+package com.wei.model;
 
 import lombok.Data;
 
@@ -9,8 +9,9 @@ public class UserModel extends BaseDao implements Serializable {
 
     private String userName;
     private String passWord;
-    private String phone;
+    private String address;
     private String email;
     private List<RoleModel> roleModels;
     private String token;
+    private String sex;
 }

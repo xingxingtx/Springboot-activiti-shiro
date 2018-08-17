@@ -1,4 +1,4 @@
-package com.wei.dao;
+package com.wei.model;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.wei.dao;
+package com.wei.model;
 
 import lombok.Data;
 
@@ -12,8 +12,8 @@ public class BaseDao implements Serializable{
     public Integer id;
     public String createTime;
     public String updateTime;
-    public String createUser;
-    public String updateUser;
+    public String createBy;
+    public String updateBy;
     public Integer state;
 
 }

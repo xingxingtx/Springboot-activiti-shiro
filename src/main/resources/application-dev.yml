@@ -10,13 +10,12 @@ spring:
           filters: stat
           driver-class-name: com.mysql.jdbc.Driver
           #基本属性
-          url: jdbc:mysql://localhost:3306/lu_tale?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+          url: jdbc:mysql://localhost:3306/activiti-pro?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
           username: root
           password: root
           #配置初始化大小/最小/最大
           initial-size: 1
           min-idle: 1
-
           max-active: 20
           #获取连接等待超时时间
           max-wait: 60000
@@ -43,4 +42,7 @@ spring:
 swagger:
   show: true
 
-#redis配置
+logging:
+  level:
+    com.wei.mapper: DEBUG
+

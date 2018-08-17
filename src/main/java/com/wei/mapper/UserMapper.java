@@ -1,12 +1,9 @@
 package com.wei.mapper;
 
-import com.wei.dao.PermissionModel;
-import com.wei.dao.RoleModel;
-import com.wei.dao.UserModel;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.dao.DataAccessException;
+import com.wei.model.UserModel;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 /**
@@ -15,8 +12,8 @@ import org.springframework.stereotype.Repository;
  * @Date:Created in 2018/8/3 9:27
  * @Modified By:
  */
-@Mapper
-public interface UserMapper{
+@Repository
+public interface UserMapper {
 
-
+    List<UserModel> select(UserModel model) throws Exception;
 }
